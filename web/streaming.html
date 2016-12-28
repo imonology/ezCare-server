@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdn.webrtc-experiment.com/style.css">
+
+    <title>ezCare Streaming</title>
+	<script>
+		// ref: http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
+		function getParameterByName(name, url) {
+			if (!url) url = window.location.href;
+			name = name.replace(/[\[\]]/g, "\\$&");
+			var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+				results = regex.exec(url);
+			if (!results) return null;
+			if (!results[2]) return '';
+			return decodeURIComponent(results[2].replace(/\+/g, " "));
+		}		
+		
+		document.addEventListener("DOMContentLoaded", function (event) {
+			// open or join automatically if query exists
+			var channel = getParameterByName('channel');
+			var action = getParameterByName('action');
+			action = action || 'join';
+			
+			if (channel) {			
+				console.log('channel [' + channel + ']');
+				if (action === 'open')
+					connection.open(channel);
+				else
+					connection.join(channel);
+			}
+		});		
+	</script>
+	
+    <style>
+        video {
+            object-fit: fill;
+            width: 30%;
+        }
+        button,
+        input,
+        select {
+            font-weight: normal;
+            padding: 2px 4px;
+            text-decoration: none;
+            display: inline-block;
+            text-shadow: none;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .make-center {
+            text-align: center;
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <article>
+
+        <header style="text-align: center;">
+            <h1>ezCare Streaming Demo</h1>
+        </header>
+
+        <section class="experiment">
+            <div class="make-center">
+                <input type="text" id="room-id" value="abcdef">
+                <button id="open-room">Open Room</button>
+                <button id="join-room">Join Room</button>
+                <button id="open-or-join-room">Auto Open Or Join Room</button>
+            </div>
+
+            <div id="chat-container">
+                <div id="file-container"></div>
+                <div class="chat-output"></div>
+            </div>
+
+            <div id="videos-container"></div>
+        </section>
+
+        <!-- <script src="/dist/rmc3.min.js"></script> -->
+        <script src="https://cdn.webrtc-experiment.com:443/rmc3.min.js"></script>
+
+        <!-- <script src="/dev/FileBufferReader.js"></script> -->
+        <script src="https://cdn.webrtc-experiment.com:443/rmc3.fbr.min.js"></script>
+
+        <!-- socket.io for signaling -->
+        <script src="/lib/socket.io/socket.io.js"></script>
+        <!-- <script src="/socket.io/socket.io.js"></script> -->
+
+        <script type="text/javascript" src="./static/js/multiConn.js"></script>
+
+        <script>
+            window.useThisGithubPath = 'muaz-khan/RTCMultiConnection';
+        </script>
+        <script src="https://cdn.webrtc-experiment.com/commits.js" async></script>
+
+    </article>
+
+    <footer>
+        <p>
+            ezCare © Streaming Demo Page
+        </p>
+    </footer>
+</body>
+</html>

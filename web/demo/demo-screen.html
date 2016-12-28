@@ -1,0 +1,95 @@
+
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<!-- <script type="text/javascript" src="IC.js"></script> -->
+<script src="/lib/socket.io/socket.io.js"></script>
+<script src="/lib/IC_REST.js"></script>
+<script type="text/javascript">
+<!--
+
+/*
+	A demo for using ImonCloud to build a simple tic-tac-toe game
+
+*/
+
+//
+//  config & globals
+//
+	
+var messageArea = undefined;
+
+// setup custom handler for incoming log messages
+var onResponse = function (type, msg) {
+	console.log('msg recv: ' + type);
+	
+	switch (type) {
+		case 'LOG':
+		console.log(msg);
+		messageArea.value += (msg.data + '\n');
+		// make sure to always scroll to bottom
+		messageArea.scrollTop = messageArea.scrollHeight;
+		return true;
+		
+		default:
+		return false;
+	}
+}
+
+var subscribeLog = function (id) {
+	
+	//IC.sendEvent = function (type, para, onDone, method) {
+	
+	// subscribe log
+	IC.sendEvent('IC_SUBSCRIBE_LOG',
+				 //{owner: 'test', project: 'demo', name: 'app'}, 
+				 {id: id, last: 100},
+				 onResponse);
+}
+
+var unsubscribeLog = function (id) {
+		
+	// subscribe log
+	IC.sendEvent('IC_UNSUBSCRIBE_LOG',
+				 //{owner: 'test', project: 'demo', name: 'app'}, 
+				 {id: id}, 
+				 onResponse);
+}
+
+
+// perform action only after page is loaded
+document.addEventListener("DOMContentLoaded", function () {
+    
+	// load message area
+	messageArea = document.getElementById("messageArea");
+		
+	IC.setSocketServer(37010, function (socket_event) {
+		console.log(socket_event);	
+	});
+	//IC.setSocketServer('src.imoncloud.com:37072');
+	/*
+	// connect
+	initIC('socket', function () {
+		console.log('socket server connected');
+		//subscribeLog();
+	});
+	*/
+});
+
+// -->
+</script>
+
+</head>
+
+<body>
+<noscript>You need to enable Javascript in your browser for this page to display properly.</noscript>
+appID: <input type="text" value="" id="appID"> 
+<a href="javascript:subscribeLog(document.getElementById('appID').value)">Subscribe</a>
+<a href="javascript:unsubscribeLog(document.getElementById('appID').value)">Unsubscribe</a><br>	
+<br>
+<textarea id="messageArea" rows="30" cols="100" ></textarea>
+	
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+{
+  "name": "ezCare",
+  "description": "",
+  "homepage": "https://github.com/imonology/ezCare",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node lobby/frontier.js",
+    "debug": "node-debug lobby/frontier.js",
+    "test": "mocha"
+  },
+  "author": {
+    "name": "Imonology Inc.",
+    "email": "ezcare@imonology.com"
+  },
+  "keywords": [
+    "meeting",
+    "voice",
+    "video",
+    "elder"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/imonology/ezCare.git"
+  },
+  "dependencies": {
+    "request": "^2.74.0",
+    "rethinkdb": "*",
+    "scalra": "*"
+  },
+  "devDependencies": {
+    "mocha": "*"
+  },
+  "engines": {
+    "node": "4.x",
+    "npm": "*"
+  }
+}

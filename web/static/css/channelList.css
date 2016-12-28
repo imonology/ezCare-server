@@ -1,0 +1,6 @@
+.channelList {
+	width: 300px;
+	margin-bottom: -5000px;
+    padding-bottom: 5000px;
+    overflow: hidden;
+}

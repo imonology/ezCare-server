@@ -1,0 +1,89 @@
+
+<html>
+<head>
+<script>
+var basePort = 38200;
+var connectType = 'sockjs';
+
+</script>
+<script src="/lib/scalra.js"></script>
+</head>
+<body>
+
+<b>Current API</b><p>
+<a href="/event/drupalLogin?username=sky&password=qwertyS">drupalLogin (sky) </a><p>
+
+<a href="/event/REGISTER_DEVICE?HW_id=1234567">REGISTER_DEVICE (1234567) will get device_id: 3737 </a><p>
+<a href="/event/REGISTER_DEVICE?HW_id=7654321">REGISTER_DEVICE (7654321) will get device_id: 7373 </a><p>
+
+<a href="/event/ADD_CONTACT?self=sky&target=3737&name=test device">ADD_CONTACT (sky adds 3737, becomes its owner)</a><p>
+<a href="/event/ADD_CONTACT?self=ezcare&target=3737&name=test device">ADD_CONTACT (ezcare adds 3737, not owner)</a><p>
+<a href="/event/ADD_CONTACT?self=3737&target=sky&name=Sky Huang">ADD_CONTACT (3737 adds sky, not owner)</a><p>
+
+<a href="/event/REMOVE_CONTACT?self=ezcare&target=3737">REMOVE_CONTACT (ezcare removes 3737)</a><p>
+<a href="/event/REMOVE_CONTACT?self=sky&target=3737">REMOVE_CONTACT (sky removes 3737)</a><p>
+<a href="/event/REMOVE_CONTACT?self=3737&target=sky">REMOVE_CONTACT (3737 removes sky)</a><p>
+
+<a href="/event/GET_CONTACTS?self=sky">GET_CONTACTS (sky)</a><p>
+<a href="/event/GET_CONTACTS?self=3737">GET_CONTACTS (3737)</a><p>
+<a href="/event/GET_CONTACTS?self=ezcare">GET_CONTACTS (ezcare)</a><p>
+
+<a href='/event/SET_CALLLIST?_data={"id":"ezcare","list":[{"target":"3737","timeout":5},{"target":"7373","timeout":10}]}'>SET_CALLLIST</a><p>
+<a href="/event/GET_CALLLIST?id=ezcare">GET_CALLLIST</a><p>
+
+<b>Obsolete API</b><p>
+<a href="/event/ADD_DEVICE?account=sky&device_id=3737&device_name=test device">ADD_DEVICE (sky)</a><p>
+<a href="/event/ADD_DEVICE?account=ezcare&device_id=3737&device_name=test device">ADD_DEVICE (ezcare)</a><p>
+<a href="/event/ADD_DEVICE?account=3737&device_id=sky&device_name=Sky Huang">ADD_DEVICE (3737 adds sky)</a><p>
+
+<a href="/event/REMOVE_DEVICE?account=sky&device_id=3737">REMOVE_DEVICE (sky)</a><p>
+
+<a href="/event/GET_DEVICES?account=sky">GET_DEVICES (sky)</a><p>
+<a href="/event/GET_DEVICES?account=ezcare">GET_DEVICES (ezcare)</a><p>
+
+<b>Pub/Sub Test</b><br>
+<input type="text" value="" id="channel">
+<a href="javascript:subscribe()">Subscribe</a> 
+<a href="javascript:unsubscribe()">Unsubscribe</a><br>
+<textarea id="messageArea" rows="15" cols="100" ></textarea><br>
+<script>
+
+	var textarea = undefined;
+
+	// show something
+	var show = function (msg) {
+		if (textarea) {
+        	textarea.value += (msg + '\n');
+        	textarea.scrollTop = textarea.scrollHeight;		
+		}
+	}
+
+
+    // perform action only after page is loaded
+    document.addEventListener("DOMContentLoaded", function () {		
+		textarea = document.getElementById('messageArea');
+	});
+
+	var subscribe = function () {
+		var channel = document.getElementById('channel').value;
+		
+		SR.subscribe(channel, 0, function (data, ch) {
+			show(JSON.stringify(data));
+		});
+	}
+
+	var unsubscribe = function () {
+		var channel = document.getElementById('channel').value;
+		SR.unsubscribe(channel, function (data) {
+			show(JSON.stringify(data));
+		});
+	}
+	
+	
+</script>
+
+
+</body>
+	
+</html>
+	

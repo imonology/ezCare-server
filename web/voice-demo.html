@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdn.webrtc-experiment.com/style.css">
+
+    <title>Voice-Demo</title>
+
+    <meta name="description" content="Share audio, video along with text chat and filesharing using RTCMultiConnection v3.0" />
+    <meta name="keywords" content="WebRTC,RTCMultiConnection,Demos,Experiments,Samples,Examples" />
+
+    <style>
+        video {
+            object-fit: fill;
+            width: 30%;
+        }
+        button,
+        input,
+        select {
+            font-weight: normal;
+            padding: 2px 4px;
+            text-decoration: none;
+            display: inline-block;
+            text-shadow: none;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .make-center {
+            text-align: center;
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <article>
+
+        <header style="text-align: center;">
+            <h1>Voice-demo</h1>
+        </header>
+
+        <section class="experiment">
+            <div class="make-center">
+                <input type="text" id="room-id" value="abcdef">
+                <button id="open-room">Open Room</button>
+                <button id="join-room">Join Room</button>
+                <button id="open-or-join-room">Auto Open Or Join Room</button>
+
+                <br><br>
+                <input type="text" id="input-text-chat" placeholder="Enter Text Chat" disabled>
+                <button id="share-file" disabled>Share File</button>
+                <br><br>
+                <button id="btn-leave-room" disabled>Leave /or close the room</button>
+            </div>
+
+            <div id="chat-container">
+                <div id="file-container"></div>
+                <div class="chat-output"></div>
+            </div>
+
+            <div id="videos-container"></div>
+        </section>
+
+        <!-- <script src="/dist/rmc3.min.js"></script> -->
+        <script src="https://cdn.webrtc-experiment.com:443/rmc3.min.js"></script>
+
+        <!-- <script src="/dev/FileBufferReader.js"></script> -->
+        <script src="https://cdn.webrtc-experiment.com:443/rmc3.fbr.min.js"></script>
+
+        <!-- socket.io for signaling -->
+        <script src="/lib/socket.io/socket.io.js"></script>
+        <!-- <script src="/socket.io/socket.io.js"></script> -->
+
+        <script type="text/javascript" src="./static/js/multiConn.js"></script>
+
+        <script>
+            window.useThisGithubPath = 'muaz-khan/RTCMultiConnection';
+        </script>
+        <script src="https://cdn.webrtc-experiment.com/commits.js" async></script>
+
+    </article>
+
+    <footer>
+        <p>
+            <a href="https://www.webrtc-experiment.com">WebRTC Experiments</a> © <a href="https://plus.google.com/+MuazKhan" rel="author" target="_blank">Muaz Khan</a>
+            <a href="mailto:muazkh@gmail.com" target="_blank">muazkh@gmail.com</a>
+            <a href="https://github.com/muaz-khan" target="_blank">Github</a>
+        </p>
+    </footer>
+</body>
+</html>

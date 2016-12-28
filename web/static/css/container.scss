@@ -1,0 +1,40 @@
+.container {
+  display: flex;
+  padding: 8px;
+  margin:0px auto;
+
+  .flex {
+    min-height: 1px;
+    margin: 8px;
+    // padding: 0px 10px;
+  }
+
+  .flex-20 {
+    @extend .flex;
+    -webkit-flex: 1 1 calc(100% / 5);
+        -ms-flex: 1 1 calc(100% / 5);
+            flex: 1 1 calc(100% / 5);
+   box-sizing: border-box;
+  }
+
+  .flex-33 {
+    @extend .flex;
+    -webkit-flex: 1 1 calc(100% / 3);
+        -ms-flex: 1 1 calc(100% / 3);
+            flex: 1 1 calc(100% / 3);
+    box-sizing: border-box;
+  }
+
+  .flex-66 {
+    @extend .flex;
+    -webkit-flex: 1 1 calc(200% / 3);
+        -ms-flex: 1 1 calc(200% / 3);
+            flex: 1 1 calc(200% / 3);
+    box-sizing: border-box;
+  }
+
+}
+
+.hide {
+  display: none;
+}

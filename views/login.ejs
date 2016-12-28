@@ -1,0 +1,81 @@
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="/lib/scalra.js"></script>
+
+<script>
+
+// retrieve account & password from HTML elements
+function getInput() {
+
+    var account = document.getElementById('account').value; 
+	var email = document.getElementById('email').value; 
+    var password = document.getElementById('password').value;
+	
+	return {account: account, email: email, password: password};	
+}
+
+// allow string to check if it begins with something
+// ref: http://stackoverflow.com/questions/1767246/javascript-check-if-string-begins-with-something
+String.prototype.startsWith = function (needle) {
+    return(this.indexOf(needle) == 0);
+};
+
+function login(type) {
+	SR.login(type, getInput(), function (result) {
+		
+		// process login success
+		if (result.code === 0) {
+			alert('登入成功!');
+		
+			if (type === 'register')
+				window.location = '/';	
+			// do not redirect if it's just to reset password
+			else if (type !== 'getpass')
+				window.location = '/main';
+		}
+		else if (result.code === 1) {
+			alert('fail, msg: ' + result.msg);
+		}
+		else if (result.code === 2) {
+			alert('error, msg: ' + result.msg);
+		}
+		else if (result.code === 3) {
+			alert('data mismatch, msg: ' + result.msg);
+		}	
+		else {
+			alert('unknown error code: ' + result.code);
+		}
+	});
+}
+
+</script>
+</head>
+
+<body>
+
+<form name="login" action="" method="GET">
+
+帳號: <input type="text" value="" id="account">
+密碼: <input type="text" value="" id="password" onkeypress="return onKeyPress(event);" autofocus>
+e-mail: <input type="text" value="" id="email">
+<br>
+<a href="javascript:login('account')">登入</a><br>
+<a href="javascript:login('register')">註冊新帳號</a><br>
+<!-- <a href="javascript:login('guest')">Guest Login</a><br> -->
+<p>
+<a href="javascript:login('getpass')">忘記密碼</a><br>
+
+<script>
+	
+function onKeyPress (event) {
+	if (event.keyCode === 13) 
+		login('account');
+}
+	
+</script>
+
+</form>
+</body>
+</html>
