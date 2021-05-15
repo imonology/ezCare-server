@@ -1,5 +1,5 @@
 # Hydra Container
-FROM ubuntu:14.04
+FROM ubuntu:trusty-20190515
 MAINTAINER BlueT - Matthew Lien - 練喆明 "BlueT@BlueT.org"
 
 ENV DEBIAN_FRONTEND noninteractive
